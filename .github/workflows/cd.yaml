@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Pull Docker image
-        run: sudo docker pull docker push sashank9490/cicd-pipeline:latest
+        run: sudo docker pull sashank9490/cicd-pipeline:latest
 
       - name: Delete Old docker container
         run: sudo docker rm -f cicd-pipeline-container || true
