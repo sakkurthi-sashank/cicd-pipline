@@ -24,7 +24,7 @@ jobs:
     - name: Build the Docker image
       run: |
         set -x
-        docker build -t cicd-pipeline .
+        docker build -t sashank9490/cicd-pipeline:latest .
         set +x
 
     - name: Push to Dockerhub
