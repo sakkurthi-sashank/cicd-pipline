@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.status(200).send({
-    message: "Server is running 🚀",
+    message: "Server is running 👷🏻",
   });
 });
 
