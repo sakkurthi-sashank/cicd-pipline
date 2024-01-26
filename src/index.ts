@@ -13,7 +13,8 @@ app.get("/", (req, res) => {
 
 if (process.env.NODE_ENV !== "test") {
   const PORT = process.env.PORT || 8080;
-  app.listen(PORT, () => {
+  const IP = process.env.IP || "0.0.0.0";
+  app.listen(Number(PORT), IP, () => {
     console.log(`Running on http://localhost:${PORT}`);
   });
 }
