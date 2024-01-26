@@ -1,5 +1,16 @@
+import { Server } from "http";
 import request from "supertest";
-import {app} from "../src/index";
+import { app } from "../src/index";
+
+let server: Server;
+
+beforeAll(async () => {
+  server = app.listen(8080);
+});
+
+afterAll((done) => {
+  server.close(done);
+});
 
 describe("GET /", () => {
   it("should return { Server is running }", async () => {
