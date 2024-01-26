@@ -19,8 +19,11 @@ jobs:
       env:
         DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    
+      run: | 
+        echo "GH_REPO: $DOCKER_USERNAME"
+        echo "GH_REPO: $DOCKER_PASSWORD"
+        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  
     - name: Build the Docker image
       run: docker build -t sashank9490/cicd-pipeline .
     - name: Push to Dockerhub
