@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: "latest"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run tests
+        run: pnpm run test
+
+      - name: Login Dockerhub
+        env:
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: |
+          echo "DOCKER_USERNAME=$DOCKER_USERNAME"
+          echo "DOCKER_PASSWORD=$DOCKER_PASSWORD"
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+      - name: Build the Docker image
+        run: |
+          set -x
+          docker build -t sashank9490/cicd-pipeline-1:latest .
+          set +x
+
+      - name: Push to Dockerhub
+        run: docker push sashank9490/cicd-pipeline-1:latest

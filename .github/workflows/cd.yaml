@@ -1,0 +1,19 @@
+# name: CD
+
+# on:
+#   push:
+#     branches: ["main"]
+#   pull_request:
+#     branches: ["main"]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Pull Image
+#         run: |
+#           docker push sashank9490/cicd-pipeline:lastest
+
+#       - name: Run Image
+#         run: |
+#           docker run -d -p 8080:8080 sashank9490/cicd-pipeline:lastest
