@@ -1,4 +1,4 @@
-name: CI
+name: CI Pipeline
 
 on:
   push:
@@ -43,8 +43,8 @@ jobs:
       - name: Build the Docker image
         run: |
           set -x
-          docker build -t sashank9490/cicd-pipeline-1:latest .
+          docker build -t sashank9490/cicd-pipeline:latest .
           set +x
 
       - name: Push to Dockerhub
-        run: docker push sashank9490/cicd-pipeline-1:latest
+        run: docker push sashank9490/cicd-pipeline:latest

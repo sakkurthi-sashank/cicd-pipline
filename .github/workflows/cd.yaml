@@ -1,19 +1,21 @@
-# name: CD
+name: CD Pipeline
 
-# on:
-#   push:
-#     branches: ["main"]
-#   pull_request:
-#     branches: ["main"]
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Pull Image
-#         run: |
-#           docker push sashank9490/cicd-pipeline:lastest
+jobs:
+  build:
+    runs-on: self-hosted
 
-#       - name: Run Image
-#         run: |
-#           docker run -d -p 8080:8080 sashank9490/cicd-pipeline:lastest
+    steps:
+      - name: Pull Docker image
+        run: sudo docker pull docker push sashank9490/cicd-pipeline:latest
+
+      - name: Delete Old docker container
+        run: sudo docker rm -f cicd-pipeline-container || true
+
+      - name: Run Docker Container
+        run: sudo docker run -d -p 8080:8080 --name cicd-pipeline-container sashank9490/cicd-pipeline:latest
