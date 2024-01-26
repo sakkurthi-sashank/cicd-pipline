@@ -5,7 +5,7 @@ import { app } from "../src/index";
 let server: Server;
 
 beforeAll(async () => {
-  server = app.listen(8080);
+  server = app.listen(process.env.PORT || 8080);
 });
 
 afterAll((done) => {
